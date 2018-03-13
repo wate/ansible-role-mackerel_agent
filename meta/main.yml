@@ -1,0 +1,8 @@
+galaxy_info:
+  author: yoshiaki tanaka
+  description: setup mackerel-agent
+  license: MIT
+  platforms:
+    - name: EL
+      versions:
+        - 7
