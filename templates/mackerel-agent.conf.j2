@@ -1,4 +1,4 @@
-apikey = "{{ mackerel_agent_cfg.apikey }}"
+apikey = "{{ mackerel_agent_apikey }}"
 # pidfile = "/var/run/mackerel-agent.pid"
 {% if mackerel_agent_cfg.pidfile is defined -%}
 pidfile = "{{ mackerel_agent_cfg.pidfile }}"

@@ -1,19 +1,19 @@
 ---
 - name: add gpg key
   rpm_key:
-    key: https://mackerel.io/assets/files/GPG-KEY-mackerel
+    key: https://mackerel.io/file/cert/GPG-KEY-mackerel-v2
 - name: add repository
   yum_repository:
     name: mackerel
     description: mackerel-agent
-    baseurl: http://yum.mackerel.io/centos/$basearch
+    baseurl: http://yum.mackerel.io/v2/$basearch
     gpgcheck: yes
 - name: install mackerel-agent
   yum:
     name: mackerel-agent
 - name: install mackerel-agent-plugins
   yum:
-    name: mackerel-check-plugins
+    name: mackerel-agent-plugins
   when: mackerel_agent_install_agent_plugins
 - name: install mackerel-check-plugins
   yum:
