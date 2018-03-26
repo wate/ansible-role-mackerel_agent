@@ -28,12 +28,12 @@ vagrant:
   instances:
     - name: mackerel-agent
       ansible_groups:
-        - default
+        - molecule
     - name: agent-plugin-installed
       ansible_groups:
-        - default
+        - molecule
     - name: check-plugin-installed
       ansible_groups:
-        - default
+        - molecule
 verifier:
   name: serverspec
