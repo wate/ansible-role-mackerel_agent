@@ -1,16 +1,18 @@
 ---
 ansible:
   group_vars:
-    all:
-      mackerel_agent_apikey: role_test_api_key
-      mackerel_agent_active_and_enabled_on_system_startup: no
-  host_vars:
-    agent-plugin-installed:
+    default:
+      mackerel_agent_api_key: "{{ lookup('env', 'MACKEREL_API_KEY') }}"
+    enable_all:
+      mackerel_agent_api_key: "{{ lookup('env', 'MACKEREL_API_KEY') }}"
       mackerel_agent_install_agent_plugins: yes
-      mackerel_agent_install_check_plugins: no
-    check-plugin-installed:
-      mackerel_agent_install_agent_plugins: no
       mackerel_agent_install_check_plugins: yes
+      mackerel_agent_active_and_enabled_on_system_startup: yes
+    disable_all:
+      mackerel_agent_api_key: "disable_all_api_key"
+      mackerel_agent_install_agent_plugins: no
+      mackerel_agent_install_check_plugins: no
+      mackerel_agent_active_and_enabled_on_system_startup: no
 dependency:
   name: galaxy
 driver:
@@ -28,12 +30,12 @@ vagrant:
   instances:
     - name: mackerel-agent
       ansible_groups:
-        - molecule
-    - name: agent-plugin-installed
+        - default
+    - name: enable-all
       ansible_groups:
-        - molecule
-    - name: check-plugin-installed
+        - enable_all
+    - name: disable-all
       ansible_groups:
-        - molecule
+        - disable_all
 verifier:
   name: serverspec
