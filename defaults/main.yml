@@ -17,7 +17,12 @@ mackerel_agent_cfg: []
   #   use_mountpoint: yes
   # plugin:
   #   metrics:
-  #     apache2: mackerel-plugin-apache2
+  #     mailq: /usr/bin/mackerel-plugin-mailq -M postfix
+  #     mysql: /usr/bin/mackerel-plugin-mysql
+  #     apache2: /usr/bin/mackerel-plugin-apache2
+  #     nginx: /usr/bin/mackerel-plugin-nginx
+  #     php-fpm: /usr/bin/mackerel-plugin-php-fpm
+  #     php-opcache: /usr/bin/mackerel-plugin-php-opcache
   #   checkes:
   #     log: "/path/to/check-log --file=/path/to/file --pattern=REGEXP --warning-over=N --critical-over=N"
   #     procs:
