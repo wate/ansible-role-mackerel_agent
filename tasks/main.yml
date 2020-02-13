@@ -7,26 +7,28 @@
     name: mackerel
     description: mackerel-agent
     baseurl: http://yum.mackerel.io/v2/$basearch
-    gpgcheck: yes
-- name: install mackerel-agent
+    gpgcheck: true
+- name: install packages
   yum:
-    name: mackerel-agent
-- name: install mackerel-agent-plugins
-  yum:
-    name: mackerel-agent-plugins
-  when: mackerel_agent_install_agent_plugins
-- name: install mackerel-check-plugins
-  yum:
-    name: mackerel-check-plugins
-  when: mackerel_agent_install_check_plugins
-- name: create mackerel-agent setting file
+    name: "{{ mackerel_agent_packages }}"
+- name: set host id
   template:
-    src: mackerel-agent.conf.j2
-    dest: /etc/mackerel-agent/mackerel-agent.conf
-    mode: "0600"
+    src: id.j2
+    dest: /var/lib/mackerel-agent/id
+  when: mackerel_agent_host_id is defined
+  notify: restart mackerel-agent
+- name: set apy key
+  lineinfile:
+    path: /etc/mackerel-agent/mackerel-agent.conf
+    regexp: '^#? *apikey = .+'
+    line: 'apikey = "{{ mackerel_agent_api_key }}"'
+- name: add extra setting
+  blockinfile:
+    path: /etc/mackerel-agent/mackerel-agent.conf
+    block: "{{ mackerel_agent_extra_setting }}"
   notify: restart mackerel-agent
 - name: mackerel-agent is active and enabled on system startup service
   systemd:
     name: mackerel-agent
-    enabled: "{{ 'yes' if mackerel_agent_active_and_enabled_on_system_startup else 'no' }}"
+    enabled: "{{ mackerel_agent_active_and_enabled_on_system_startup }}"
     state: "{{ 'started' if mackerel_agent_active_and_enabled_on_system_startup else 'stopped' }}"
