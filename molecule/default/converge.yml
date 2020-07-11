@@ -13,19 +13,3 @@
       memo = "LAをチェックし、高騰したときにはそのときの ps auxf の結果を出力します"
   roles:
     - role: mackerel-agent
-  pre_tasks:
-    - name: dump vars
-      block:
-        - name: create dump directory
-          file:
-            path: dump_vars
-            state: directory
-          changed_when: false
-        - name: dump vars
-          blockinfile:
-            path: "dump_vars/{{ inventory_hostname }}.yml"
-            create: true
-            block: "{{ vars | to_json }}"
-          changed_when: false
-      connection: local
-      become: false
