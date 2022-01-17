@@ -1,15 +1,9 @@
 ---
-- name: add gpg key
-  rpm_key:
-    key: https://mackerel.io/file/cert/GPG-KEY-mackerel-v2
 - name: add repository
-  yum_repository:
-    name: mackerel
-    description: mackerel-agent
-    baseurl: http://yum.mackerel.io/v2/$basearch
-    gpgcheck: true
+  import_tasks: repository.yml
+  tags: repository
 - name: install packages
-  yum:
+  apt:
     name: "{{ mackerel_agent_packages }}"
 - name: set host id
   template:
@@ -18,7 +12,7 @@
     mode: "0644"
   when: mackerel_agent_host_id is defined
   notify: restart mackerel-agent
-- name: set apy key
+- name: set api key
   lineinfile:
     path: /etc/mackerel-agent/mackerel-agent.conf
     regexp: '^#? *apikey = .+'
@@ -32,4 +26,4 @@
   systemd:
     name: mackerel-agent
     enabled: "{{ mackerel_agent_active_and_enabled_on_system_startup }}"
-    state: "{{ 'started' if mackerel_agent_active_and_enabled_on_system_startup else 'stopped' }}"
+    state: "{{ mackerel_agent_active_and_enabled_on_system_startup | ternary('started', 'stopped') }}"
