@@ -1,7 +1,6 @@
 ---
 - name: install dependency packages
   apt:
-    update_cache: true
     name:
       - apt-transport-https
       - ca-certificates
