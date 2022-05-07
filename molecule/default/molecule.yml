@@ -2,7 +2,7 @@
 dependency:
   name: galaxy
 driver:
-  name: docker
+  name: ${DRIVER_NAME:-docker}
 platforms:
   - name: bullseye
     groups:
@@ -47,21 +47,21 @@ provisioner:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
 # verifier:
 #   name: ansible
-# scenario:
-#   test_sequence:
-#     - dependency
-#     - lint
-#     - cleanup
-#     - destroy
-#     - syntax
-#     - create
-#     - prepare
-#     - converge
-#     - idempotence
-#     - side_effect
-#     - verify
-#     - cleanup
-#     - destroy
+scenario:
+  test_sequence:
+    - dependency
+    - lint
+    - cleanup
+    - destroy
+    - syntax
+    - create
+    - prepare
+    - converge
+    # - idempotence
+    - side_effect
+    - verify
+    - cleanup
+    - destroy
 #   create_sequence:
 #     - dependency
 #     - create
