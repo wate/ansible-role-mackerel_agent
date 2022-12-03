@@ -1,14 +1,26 @@
 ---
+## ---------
+## インストールするパッケージ
+## ---------
 mackerel_agent_packages:
   - mackerel-agent
   - mackerel-agent-plugins
   - mackerel-check-plugins
   - mkr
 
+## ---------
+## APIキー
+## ---------
 mackerel_agent_api_key: ""
 
 # mackerel_agent_host_id: "abcdefg"
 
+## ---------
+## サービスの有効化及び自動実行の設定
+## ---------
 mackerel_agent_active_and_enabled_on_system_startup: "{{ mackerel_agent_api_key | length > 0 }}"
 
+## ---------
+## Mackerelエージェントの追加設定(プラグインの設定など)
+## ---------
 mackerel_agent_extra_setting: ""
