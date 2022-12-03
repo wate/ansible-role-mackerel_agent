@@ -1,3 +1,4 @@
+---
 - name: set host id
   block:
     - name: create host id directory
@@ -17,8 +18,8 @@
 - name: set api key
   ansible.builtin.lineinfile:
     path: /etc/mackerel-agent/mackerel-agent.conf
-    regexp: '^#? *apikey = .+'
-    line: 'apikey = "{{ mackerel_agent_api_key }}"'
+    regexp: ^#? *apikey = .+
+    line: apikey = "{{ mackerel_agent_api_key }}"
 - name: add extra setting
   ansible.builtin.blockinfile:
     path: /etc/mackerel-agent/mackerel-agent.conf
