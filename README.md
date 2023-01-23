@@ -26,7 +26,7 @@ APIキー
 
 ### `mackerel_agent_active_and_enabled_on_system_startup`
 
-サービスの有効化及び自動実行の設定
+サービスの有効化および自動実行の設定
 
 ### `mackerel_agent_extra_setting`
 
