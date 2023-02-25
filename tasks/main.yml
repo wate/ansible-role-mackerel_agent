@@ -1,13 +1,21 @@
 ---
-- name: Add repository
-  ansible.builtin.import_tasks: repository.yml
-  tags: repository
-- name: Add repository
-  ansible.builtin.import_tasks: package.yml
-  tags: package
-- name: Create/update setting
-  ansible.builtin.import_tasks: setting.yml
-  tags: setting
-- name: Setup service
-  ansible.builtin.import_tasks: service.yml
-  tags: service
+- name: Import repository task
+  ansible.builtin.import_tasks:
+    file: repository.yml
+  tags:
+    - role_mackerel_agent_repository
+- name: Import package task
+  ansible.builtin.import_tasks:
+    file: package.yml
+  tags:
+    - role_mackerel_agent_package
+- name: Import setting task
+  ansible.builtin.import_tasks:
+    file: setting.yml
+  tags:
+    - role_mackerel_agent_setting
+- name: Import service task
+  ansible.builtin.import_tasks:
+    file: service.yml
+  tags:
+    - role_mackerel_agent_service
