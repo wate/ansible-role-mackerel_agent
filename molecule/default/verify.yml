@@ -4,6 +4,21 @@
   gather_facts: false
   # check_mode: true
   tasks:
-    - name: Example assertion
+    ## パッケージのテスト
+    - name: Gather package facts
+      ansible.builtin.package_facts:
+        manager: auto
+    - name: Assert package
       ansible.builtin.assert:
-        that: true
+        that:
+          - ansible_facts.packages['mackerel-agent'] is defined
+          - ansible_facts.packages['mackerel-agent-plugins'] is defined
+          - ansible_facts.packages['mackerel-check-plugins'] is defined
+          - ansible_facts.packages['mkr'] is defined
+    ## サービスのテスト
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: Assert service
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['mackerel-agent.service'] is defined

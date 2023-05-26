@@ -7,11 +7,12 @@
       - curl
       - gnupg
 - name: Add apt signing key
-  ansible.builtin.apt_key:
-    url: https://mackerel.io/file/cert/GPG-KEY-mackerel-v2
-    state: present
+  ansible.builtin.get_url:
+    url: "{{ mackerel_agent_apt_key_url }}"
+    dest: "{{ mackerel_agent_apt_key_dest }}"
+    mode: "0644"
 - name: Add repository
   ansible.builtin.apt_repository:
     filename: mackerel
-    repo: deb [arch=amd64,arm64] http://apt.mackerel.io/v2/ mackerel contrib
+    repo: deb [arch=amd64,arm64 signed-by={{ mackerel_agent_apt_key_dest }}] http://apt.mackerel.io/v2/ mackerel contrib
     state: present
