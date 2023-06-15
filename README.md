@@ -8,8 +8,8 @@ OS Platform
 
 ### Debian
 
+- bookworm
 - bullseye
-- buster
 
 Role Variables
 --------------
