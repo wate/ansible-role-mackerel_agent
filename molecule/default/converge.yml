@@ -4,22 +4,18 @@
   gather_facts: true
   become: true
   pre_tasks:
-    - name: update cache(Debian)
+    - name: Update cache(apt)
       ansible.builtin.apt:
         update_cache: true
-      when: ansible_facts.os_family == 'Debian'
-    - name: update cache(RedHat 8 <)
+      when: ansible_facts.pkg_mgr == 'apt'
+    - name: Update cache(yum)
       ansible.builtin.yum:
         update_cache: true
-      when:
-        - ansible_facts.os_family == 'RedHat'
-        - ansible_facts.distribution_major_version is version('8', operator='<')
-    - name: update cache(RedHat 8 >=)
+      when: ansible_facts.pkg_mgr == 'yum'
+    - name: Update cache(dnf)
       ansible.builtin.dnf:
         update_cache: true
-      when:
-        - ansible_facts.os_family == 'RedHat'
-        - ansible_facts.distribution_major_version is version('8', operator='>=')
+      when: ansible_facts.pkg_mgr == 'dnf'
   tasks:
     - name: Include role
       ansible.builtin.include_role:
