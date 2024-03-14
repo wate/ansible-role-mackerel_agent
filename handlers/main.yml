@@ -1,6 +1,6 @@
 ---
 - name: restart mackerel-agent
-  ansible.builtin.systemd:
+  ansible.builtin.systemd_service:
     name: mackerel-agent
     state: restarted
   when:
