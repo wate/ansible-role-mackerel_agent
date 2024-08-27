@@ -9,11 +9,6 @@
         update_cache: true
       when: ansible_facts.pkg_mgr == 'apt'
       changed_when: false
-    - name: Update cache(yum)
-      ansible.builtin.yum:
-        update_cache: true
-      when: ansible_facts.pkg_mgr == 'yum'
-      changed_when: false
     - name: Update cache(dnf)
       ansible.builtin.dnf:
         update_cache: true
