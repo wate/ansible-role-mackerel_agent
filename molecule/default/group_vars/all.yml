@@ -1,0 +1,3 @@
+---
+mackerel_envs:
+  MYSQL_PASSWORD: very_very_5tr0ng_p455w0rd

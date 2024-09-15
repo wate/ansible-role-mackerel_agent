@@ -15,8 +15,19 @@
           - ansible_facts.packages['mackerel-agent-plugins'] is defined
           - ansible_facts.packages['mackerel-check-plugins'] is defined
           - ansible_facts.packages['mkr'] is defined
+    - name: Check environment variable
+      ansible.builtin.command:
+        cmd: grep "MYSQL_PASSWORD=" /etc/default/mackerel-agent
+      failed_when: env_var_result.rc > 1
+      changed_when: false
+      register: env_var_result
+    - name: Assert environment variable
+      ansible.builtin.assert:
+        that:
+          - env_var_result.rc == 0
+          - env_var_result.stdout == 'MYSQL_PASSWORD="very_very_5tr0ng_p455w0rd"'
     ## サービスのテスト
-    - name: Populate service facts
+    - name: Gather service facts
       ansible.builtin.service_facts:
     - name: Assert service
       ansible.builtin.assert:

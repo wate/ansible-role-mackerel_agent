@@ -1,4 +1,14 @@
 ---
+- name: Update envirnment file
+  ansible.builtin.lineinfile:
+    path: /etc/default/mackerel-agent
+    regexp: ^{{ mackerel_env.key }}=
+    line: '{{ mackerel_env.key }}="{{ mackerel_env.value }}"'
+  loop: "{{ mackerel_envs | dict2items }}"
+  loop_control:
+    loop_var: mackerel_env
+    label: "{{ mackerel_env.key }}"
+  notify: Restart mackerel-agent
 - name: Service mackerel-agent is active and enabled on system startup service
   ansible.builtin.systemd_service:
     name: mackerel-agent
