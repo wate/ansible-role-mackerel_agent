@@ -2,20 +2,16 @@
 - name: Import repository task
   ansible.builtin.import_tasks:
     file: repository.yml
-  tags:
-    - role_mackerel_agent_repository
+  tags: role_mackerel_agent_repository
 - name: Import package task
   ansible.builtin.import_tasks:
     file: package.yml
-  tags:
-    - role_mackerel_agent_package
+  tags: role_mackerel_agent_package
 - name: Import setting task
   ansible.builtin.import_tasks:
     file: setting.yml
-  tags:
-    - role_mackerel_agent_setting
+  tags: role_mackerel_agent_setting
 - name: Import service task
   ansible.builtin.import_tasks:
     file: service.yml
-  tags:
-    - role_mackerel_agent_service
+  tags: role_mackerel_agent_service

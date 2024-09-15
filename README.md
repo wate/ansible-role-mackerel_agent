@@ -32,6 +32,10 @@ APIキー
 
 Mackerelエージェントの追加設定(プラグインの設定など)
 
+### `mackerel_envs`
+
+Mackerelエージェントの環境変数
+
 Example Playbook
 --------------
 

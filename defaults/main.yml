@@ -24,3 +24,9 @@ mackerel_agent_active_and_enabled_on_system_startup: "{{ mackerel_agent_api_key 
 ## Mackerelエージェントの追加設定(プラグインの設定など)
 ## ---------
 mackerel_agent_extra_setting: ""
+
+## ---------
+## Mackerelエージェントの環境変数
+## ---------
+mackerel_envs: {}
+  # MYSQL_PASSWORD: very_very_strong_password
