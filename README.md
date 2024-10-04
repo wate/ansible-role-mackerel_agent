@@ -44,6 +44,8 @@ Mackerelエージェントの環境変数
 
 #### `mackerel_agent_apt_key_url`
 
+#### `mackerel_agent_apt_key_download_dest`
+
 #### `mackerel_agent_apt_key_dest`
 
 Example Playbook
