@@ -6,11 +6,21 @@
       - ca-certificates
       - curl
       - gnupg
-- name: Add apt signing key
+- name: Create GPG key directory
+  ansible.builtin.file:
+    path: "{{ mackerel_agent_apt_key_dest | dirname }}"
+    state: directory
+    mode: "0755"
+- name: Download GPG key
   ansible.builtin.get_url:
     url: "{{ mackerel_agent_apt_key_url }}"
-    dest: "{{ mackerel_agent_apt_key_dest }}"
+    dest: "{{ mackerel_agent_apt_key_download_dest }}"
     mode: "0644"
+  register: gpg_key_download_result
+- name: Convert GPG key
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o {{ mackerel_agent_apt_key_dest }} {{ mackerel_agent_apt_key_download_dest }}
+  when: gpg_key_download_result is changed
 - name: Add repository
   ansible.builtin.apt_repository:
     filename: mackerel
