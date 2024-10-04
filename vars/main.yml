@@ -1,3 +1,4 @@
 ---
 mackerel_agent_apt_key_url: https://mackerel.io/file/cert/GPG-KEY-mackerel-v2
-mackerel_agent_apt_key_dest: /usr/share/keyrings/mackerel.gpg.key
+mackerel_agent_apt_key_download_dest: /etc/apt/keyrings/mackerel-v2-archive-keyring.gpg.key
+mackerel_agent_apt_key_dest: /etc/apt/keyrings/mackerel-v2-archive-keyring.gpg
