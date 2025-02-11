@@ -2,6 +2,8 @@
 - name: Install dependency packages
   ansible.builtin.apt:
     name:
+      - python3-apt
+      - python3-debian
       - apt-transport-https
       - ca-certificates
       - curl
@@ -22,7 +24,19 @@
     cmd: gpg --dearmor -o {{ mackerel_agent_apt_key_dest }} {{ mackerel_agent_apt_key_download_dest }}
   when: gpg_key_download_result is changed
 - name: Add repository
-  ansible.builtin.apt_repository:
-    filename: mackerel
-    repo: deb [arch=amd64,arm64 signed-by={{ mackerel_agent_apt_key_dest }}] http://apt.mackerel.io/v2/ mackerel contrib
+  ansible.builtin.deb822_repository:
+    name: mackerel
+    uris: http://apt.mackerel.io/v2/
+    suites: mackerel
+    components: contrib
+    signed_by: "{{ mackerel_agent_apt_key_dest }}"
+    architectures:
+      - amd64
+      - arm64
+    enabled: true
     state: present
+  register: apt_repository_result
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+  when: apt_repository_result is changed
