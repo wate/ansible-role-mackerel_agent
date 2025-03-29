@@ -1,5 +1,5 @@
 ---
-- name: Update envirnment file
+- name: Update environment file
   ansible.builtin.lineinfile:
     path: /etc/default/mackerel-agent
     regexp: ^{{ mackerel_env.key }}=
