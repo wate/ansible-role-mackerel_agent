@@ -1,0 +1,4 @@
+---
+collections:
+  ## moleculeのvagrantドライバで使用
+  - name: community.vagrant

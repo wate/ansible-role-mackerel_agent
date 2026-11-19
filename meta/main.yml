@@ -1,6 +1,7 @@
 ---
 galaxy_info:
   role_name: mackerel_agent
+  namespace: wate
   author: yoshiaki tanaka
   description: Setup mackerel agent
   license: Apache
