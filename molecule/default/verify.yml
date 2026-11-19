@@ -15,6 +15,8 @@
           - ansible_facts.packages['mackerel-agent-plugins'] is defined
           - ansible_facts.packages['mackerel-check-plugins'] is defined
           - ansible_facts.packages['mkr'] is defined
+        fail_msg: "Some required Mackerel packages are not installed"
+        success_msg: "All required Mackerel packages are installed"
     - name: Check environment variable
       ansible.builtin.command:
         cmd: grep "MYSQL_PASSWORD=" /etc/default/mackerel-agent
@@ -26,6 +28,8 @@
         that:
           - env_var_result.rc == 0
           - env_var_result.stdout == 'MYSQL_PASSWORD="very_very_5tr0ng_p455w0rd"'
+        fail_msg: "Mackerel agent environment variable MYSQL_PASSWORD is not set correctly"
+        success_msg: "Mackerel agent environment variable MYSQL_PASSWORD is set correctly"
     ## サービスのテスト
     - name: Gather service facts
       ansible.builtin.service_facts:
@@ -33,3 +37,5 @@
       ansible.builtin.assert:
         that:
           - ansible_facts.services['mackerel-agent.service'] is defined
+        fail_msg: "mackerel-agent service is not defined"
+        success_msg: "mackerel-agent service is defined"

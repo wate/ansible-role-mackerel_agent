@@ -46,24 +46,24 @@ provisioner:
   config_options:
     defaults:
       hash_behaviour: merge
-      result_format: yaml
+      callback_result_format: yaml
+    ssh_connection:
+      pipelining: true
   playbooks:
     converge: ${MOLECULE_PLAYBOOK:-converge.yml}
-# verifier:
-#   name: ansible
+verifier:
+  name: ansible
 scenario:
+  ## cleanupとside_effectはドライバにプレイブックが無いため実行しません
   test_sequence:
     - dependency
-    - cleanup
     - destroy
     - syntax
     - create
     - prepare
     - converge
     # - idempotence
-    - side_effect
     - verify
-    - cleanup
     - destroy
 #   create_sequence:
 #     - dependency
@@ -71,7 +71,6 @@ scenario:
 #     - prepare
 #   check_sequence:
 #     - dependency
-#     - cleanup
 #     - destroy
 #     - create
 #     - prepare
@@ -85,5 +84,4 @@ scenario:
 #     - converge
 #   destroy_sequence:
 #     - dependency
-#     - cleanup
 #     - destroy
